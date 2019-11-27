@@ -1,0 +1,37 @@
+.box{
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 200px;
+    z-index: 10000;
+}
+
+.item{
+    background: #444;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 5px 5px 5px 10px;
+    font-size: 12px;
+}
+
+.itemEnter{
+    opacity: 0;
+}
+
+.itemEnterActive{
+    transition: opacity 0.5s;
+    opacity: 1;
+}
+
+.itemLeaveActive{
+    transition: opacity 0.5s;
+    opacity: 0;
+}
+
+.success{
+    background-color: #28a745;
+}
+.error{
+    background-color: #dc3545;
+}

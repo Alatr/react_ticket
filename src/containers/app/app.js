@@ -1,7 +1,10 @@
 import React from 'react';
+import Tickets from '~/containers/tickets'
 
 export default class App extends React.Component{
    render(){
-      return <h1>hi, bro</h1>
+      return <>
+         <Tickets/>
+      </>
    }
 }

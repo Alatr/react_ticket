@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import App from '~/containers/app';
-import * as ticketsAll from '~/api/tickets';
+import rootStore from '~/store';
+import Spinner from '~/components/errors/spinner';
 
-ticketsAll.load().then((res)=>{
-	console.log('результат',res);
+ReactDom.render(<Spinner/>, document.querySelector('#app'));
+rootStore.tickets.load().then((res)=>{
+	ReactDom.render(<App/>, document.querySelector('#app'));
 })
 
 
-ReactDom.render(<App/>, document.querySelector('#app'));
 
