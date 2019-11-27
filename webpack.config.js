@@ -81,8 +81,8 @@ module.exports = (env, argv) => {
       devServer: {
          historyApiFallback: true,
          proxy: {
-            '/reactcourseapi/**': {
-               target: 'http://faceprog.ru',
+            '/v2/**': {
+							 target: 'http://api.travelpayouts.com',
                secure: false,
                changeOrigin: true
             }
