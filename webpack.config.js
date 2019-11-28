@@ -82,7 +82,12 @@ module.exports = (env, argv) => {
          historyApiFallback: true,
          proxy: {
             '/v2/**': {
-							 target: 'http://api.travelpayouts.com',
+					target: 'http://api.travelpayouts.com',
+               secure: false,
+               changeOrigin: true
+            },
+            '/data/**': {
+					target: 'http://api.travelpayouts.com',
                secure: false,
                changeOrigin: true
             }

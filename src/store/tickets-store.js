@@ -3,8 +3,10 @@ import { observable, computed, action, runInAction } from 'mobx';
 export default class Tickets{
 	constructor(rootStore){
 		this.rootStore = rootStore;
-    this.api = this.rootStore.api.tickets;
+    this.api = this.rootStore.api;
+    this.city = this.rootStore.cityData;
 	}
+	@observable cityInfo = {};
 	@observable ticketsList = [];
 	@observable tableCell = [
 		{
@@ -73,12 +75,18 @@ export default class Tickets{
 				if (value != null) {
 					return value.toFixed(num);
 				}
+			},
+			parseCityCode: (val)=>{
+
 			}
 		}
 	}
 
 	@computed get tableCellKey() {
 		return this.tableCell.map(el => el.key)
+	}
+	@computed get qq() {		
+		return this.rootStore.cityData
 	}
 
 	@action changeTicketsListAPI(obj){
@@ -96,11 +104,23 @@ export default class Tickets{
 
 	@action load(){
 		return new Promise((resolve)=>{
-			this.api.load().then((data)=>{
+			this.api.tickets.load().then((data)=>{
 				runInAction(() => {
 					console.log(data.data);
 					
 					this.changeTicketsListAPI(data.data);
+					resolve();
+				});
+			});
+		});
+	}
+	@action loadCityInfo(){
+		return new Promise((resolve)=>{
+			this.api.cityInfo.loadCityInfo().then((data)=>{
+				runInAction(() => {
+					console.log(data);
+					
+					this.cityInfo = data.data;
 					resolve();
 				});
 			});
