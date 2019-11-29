@@ -6,7 +6,8 @@ export default class Tickets{
     this.api = this.rootStore.api;
     this.city = this.rootStore.cityData;
 	}
-	@observable cityInfo = {};
+	@observable cityInfo = null;
+	@observable IATAData = null;
 	@observable ticketsList = [];
 	@observable tableCell = [
 		{
@@ -25,13 +26,13 @@ export default class Tickets{
 				key: 'destination',
 				label: 'пункт назначения',
 				id: 'id_destination,',
-				format: this.formatRule.string
+				format: this.formatRule.parseCityCode
 		},
 		{
 				key: 'origin',
 				label: 'пункт отправления',
 				id: 'id_origin,',
-				format: this.formatRule.string
+				format: this.formatRule.parseCityCode
 		},
 		{
 				key: 'return_date',
@@ -77,7 +78,8 @@ export default class Tickets{
 				}
 			},
 			parseCityCode: (val)=>{
-
+				return (this.IATAData) ? this.IATAData[val] : val;
+				
 			}
 		}
 	}
@@ -85,8 +87,14 @@ export default class Tickets{
 	@computed get tableCellKey() {
 		return this.tableCell.map(el => el.key)
 	}
-	@computed get qq() {		
-		return this.rootStore.cityData
+	@action parseIATAData() {		
+		let newObjCityInfo = {};
+			if (this.cityInfo) {
+				this.cityInfo.forEach((el) => {
+					newObjCityInfo[el.code] = el.name
+				});
+			}
+		this.IATAData = newObjCityInfo;
 	}
 
 	@action changeTicketsListAPI(obj){
@@ -118,9 +126,8 @@ export default class Tickets{
 		return new Promise((resolve)=>{
 			this.api.cityInfo.loadCityInfo().then((data)=>{
 				runInAction(() => {
-					console.log(data);
-					
-					this.cityInfo = data.data;
+					this.cityInfo = data;
+					this.parseIATAData();
 					resolve();
 				});
 			});

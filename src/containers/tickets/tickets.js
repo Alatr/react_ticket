@@ -13,8 +13,8 @@ import TableRow from '@material-ui/core/TableRow';
 class Tickets extends React.Component{
    render(){
 		let ticketsStore = this.props.stores.tickets;
-		console.log(ticketsStore.loadCityInfo());
-		
+		console.log(ticketsStore.cityInfo);
+	
 		 return (
 			 <Paper className={styles.root}>
 				 <div className={styles.tableWrapper}>
