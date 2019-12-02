@@ -1,39 +1,18 @@
-import AppProducts from '~/components/products/list';
-import AppProduct from '~/components/products/item';
-import AppCart from '~/containers/cart';
-import AppOrder from '~/containers/order';
-import AppResult from '~/containers/result';
+import AppTickets from '~/containers/tickets';
+import AppMonthTickets from '~/containers/tickets-month';
 import AppError404 from '~/components/errors/404';
 
 const routes = [
    {
-      name: 'home',
+      name: 'Ticket',
       path: '/',
-      component: AppProducts,
+      component: AppTickets,
       exact: true
    },
    {
-      name: 'product',
-      path: '/product/:id',
-      component: AppProduct,
-      exact: true
-   },
-   {
-      name: 'cart',
-      path: '/cart',
-      component: AppCart,
-      exact: true
-   },
-   {
-      name: 'order',
-      path: '/order',
-      component: AppOrder,
-      exact: true
-   },
-   {
-      name: 'result',
-      path: '/result',
-      component: AppResult,
+      name: 'Month ticket price',
+      path: '/month-price',
+      component: AppMonthTickets,
       exact: true
    },
    {
@@ -53,7 +32,7 @@ routes.forEach((route) => {
 	
 	
 	for (let key in routesMap) {
-		if (key == 'home' || key == 'order' || key == 'cart' ) {
+		if (key == 'Ticket' || key == 'Month ticket price' || key == 'cart' ) {
 			routesMapSidebar.push({
 				'name': key,
 				'url': routesMap[key]

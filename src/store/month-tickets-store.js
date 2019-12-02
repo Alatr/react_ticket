@@ -63,7 +63,6 @@ export default class Tickets{
 		return this.tableCell.map(el => el.key)
 	}
 
-
 	@action changeTicketsListAPI(obj){
 		obj.forEach((el)=>{
 			let item = {}
@@ -79,7 +78,7 @@ export default class Tickets{
 
 	@action load(){
 		return new Promise((resolve)=>{
-			this.api.tickets.load().then((data)=>{
+			this.api.monthTtickets.load().then((data)=>{
 				runInAction(() => {
 					this.changeTicketsListAPI(data.data);
 					resolve();

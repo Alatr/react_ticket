@@ -86,6 +86,11 @@ module.exports = (env, argv) => {
                secure: false,
                changeOrigin: true
             },
+            '/v1/**': {
+					target: 'http://api.travelpayouts.com',
+               secure: false,
+               changeOrigin: true
+            },
             '/data/**': {
 					target: 'http://api.travelpayouts.com',
                secure: false,
