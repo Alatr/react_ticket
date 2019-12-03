@@ -5,10 +5,7 @@ import rootStore from '~/store';
 import Spinner from '~/components/errors/spinner';
 
 rootStore.mainStore.loadCityInfo();
-ReactDom.render(<Spinner/>, document.querySelector('#app'));
-rootStore.tickets.load().then((res)=>{
 	ReactDom.render(<App/>, document.querySelector('#app'));
-})
 
 
 

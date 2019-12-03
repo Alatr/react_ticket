@@ -6,6 +6,7 @@ export default class Tickets{
     this.api = this.rootStore.api;
     this.city = this.rootStore.cityData;
 	}
+	@observable loading = true;
 	@observable ticketsList = [];
 	@observable tableCell = [
 		{
@@ -62,7 +63,9 @@ export default class Tickets{
 	@computed get tableCellKey() {
 		return this.tableCell.map(el => el.key)
 	}
-
+	@action changeLoading(){
+		this.loading = false;
+	}
 
 	@action changeTicketsListAPI(obj){
 		obj.forEach((el)=>{
@@ -82,6 +85,7 @@ export default class Tickets{
 			this.api.tickets.load().then((data)=>{
 				runInAction(() => {
 					this.changeTicketsListAPI(data.data);
+					this.changeLoading();
 					resolve();
 				});
 			});

@@ -10,9 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 
 
 export default function Tickets (props){
-
-		 return (
-			 <Paper className={styles.root}>
+	return (
+		<Paper className={styles.root}>
 				 <div className={styles.tableWrapper}>
 					 <Table stickyHeader aria-label="sticky table">
 						 <TableHead>
@@ -25,8 +24,8 @@ export default function Tickets (props){
 							 </TableRow>
 						 </TableHead>
 						 <TableBody>
-							 {props.ticketsList.map((row, i) => {
-								 return  <TableRow key={i}>
+								{props.ticketsList.map((row, i) => {
+									return  <TableRow key={i}>
 														{props.tableCell.map(column => {
 															const value = row[column.key];
 															return <TableCell key={column.id} >
@@ -34,7 +33,7 @@ export default function Tickets (props){
 																			</TableCell>
 														})}
 													</TableRow>
-							 })}
+								})}
 						 </TableBody>
 					 </Table>
 				 </div>

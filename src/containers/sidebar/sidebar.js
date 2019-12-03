@@ -6,8 +6,6 @@ import styles from './css/sidebar.module.css';
 
 export default class Sidebar extends React.Component{
    render(){
-      console.log(routesMapSidebar);
-      
       let sideBarItems = routesMapSidebar.map((route, i) => {
          return <li key={i} className={`${styles.list_item}`}>
                            <NavLink to={route.url} 

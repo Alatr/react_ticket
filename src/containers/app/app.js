@@ -1,9 +1,9 @@
 import React from 'react';
-import Tickets from '~/containers/tickets'
 import Sidebar from '~/containers/sidebar'
 import styles from '~/containers/app/css/app.css';
-import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { routes } from '~/router';
+import Logo from './img/my.svg';
 
 export default class App extends React.Component{
    render(){
@@ -18,6 +18,10 @@ export default class App extends React.Component{
          });
       
       return <BrowserRouter>
+         <div className={`container`}>
+            <img src={Logo}/>
+         </div>
+         <hr/>
          <div className="container">
             <aside className="sidebar">
                <Sidebar/>
