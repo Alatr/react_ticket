@@ -9,3 +9,8 @@ function load(token = null){
 	return makeRequest(url);
 }
 
+
+function urlBuilder(settings = null){
+	
+}
+

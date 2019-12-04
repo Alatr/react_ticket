@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from '~/containers/sidebar'
+import Select from '~/containers/filter'
 import styles from '~/containers/app/css/app.css';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { routes } from '~/router';
@@ -25,6 +26,9 @@ export default class App extends React.Component{
          <div className="container">
             <aside className="sidebar">
                <Sidebar/>
+               <hr/>
+               
+               <Select/>
             </aside>
             <main className="content">
             <Switch>
