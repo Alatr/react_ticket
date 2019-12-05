@@ -27,7 +27,6 @@ export default class App extends React.Component{
             <aside className="sidebar">
                <Sidebar/>
                <hr/>
-               
                <Select/>
             </aside>
             <main className="content">

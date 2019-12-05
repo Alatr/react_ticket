@@ -82,7 +82,7 @@ export default class Tickets{
 
 	@action load(){
 		return new Promise((resolve)=>{
-			this.api.tickets.load().then((data)=>{
+			this.api.tickets.load({key: 'origin',value: 'usd'}).then((data)=>{
 				runInAction(() => {
 					this.changeTicketsListAPI(data.data);
 					this.changeLoading();
