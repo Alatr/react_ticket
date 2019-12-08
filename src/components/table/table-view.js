@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 
 import styles from '~/containers/tickets/css/ticket.module.css';
 import Paper from '@material-ui/core/Paper';
@@ -9,35 +9,42 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 
-export default function Tickets (props){
+export default class extends PureComponent{
+	render(){
+		let {tableCell, ticketsList} = this.props
+	
+		let tableCellView = tableCell.map(column => {
+			return 	<TableCell key={column.id} >
+								{column.label}
+							</TableCell>
+		});
+		let tableBody = ticketsList.map((row, i) => {
+			return  <TableRow key={i}>
+								{tableCell.map(column => {
+									const value = row[column.key];
+									console.log('tableBody  TableCell redder');
+									return <TableCell key={column.id} >
+														{column.format && typeof value === 'number' ? column.format(value, 2) : column.format(value)}
+													</TableCell>
+								})}
+							</TableRow>
+		})
 	return (
 		<Paper className={styles.root}>
 				 <div className={styles.tableWrapper}>
 					 <Table stickyHeader aria-label="sticky table">
 						 <TableHead>
 							 <TableRow>
-								 {props.tableCell.map(column=> (
-									 <TableCell key={column.id} >
-										 {column.label}
-									 </TableCell>
-								 ))}
+								 {tableCellView}
 							 </TableRow>
 						 </TableHead>
 						 <TableBody>
-								{props.ticketsList.map((row, i) => {
-									return  <TableRow key={i}>
-														{props.tableCell.map(column => {
-															const value = row[column.key];
-															return <TableCell key={column.id} >
-																				{column.format && typeof value === 'number' ? column.format(value, 2) : column.format(value)}
-																			</TableCell>
-														})}
-													</TableRow>
-								})}
+							 {tableBody}
 						 </TableBody>
 					 </Table>
 				 </div>
 			 </Paper>
 		 );
+	}
 }
 

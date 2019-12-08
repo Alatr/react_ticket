@@ -15,12 +15,13 @@ class Tickets extends React.Component{
 			let ticketsListDetails = ticketsStore.ticketsList.map(field => {
 				return {...field}
 			});
+			console.log('render');
 			
 			 return (rootStore.tickets.loading) ? 
-				 <Spinner/> :
-				<TicketsView tableCell={ticketsStore.tableCell}
-														 ticketsList={ticketsListDetails}
-							 />;
+				<Spinner/> :
+				<TicketsView tableCell = {ticketsStore.tableCell}
+										 ticketsList={ticketsListDetails}
+				/>;
 		 
    }
 }

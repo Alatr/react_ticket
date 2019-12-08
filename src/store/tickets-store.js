@@ -7,6 +7,18 @@ export default class Tickets{
     this.city = this.rootStore.cityData;
 	}
 	@observable loading = true;
+	@observable filterSetings = {
+			currency: {
+				label: 'currency',
+				value: 'uah',
+				params: [`uah`,`usd`,`eur`,'rub']
+			},
+			limit: {
+				label: 'limit',
+				value: '10',
+				params: [`10`,`20`,`30`,'40']
+			}
+		};
 	@observable ticketsList = [];
 	@observable tableCell = [
 		{
@@ -66,8 +78,12 @@ export default class Tickets{
 	@action changeLoading(){
 		this.loading = false;
 	}
+	@action changeFilterSetings(val, label ){
+		this.filterSetings[label].value = val
+	}
 
 	@action changeTicketsListAPI(obj){
+		this.ticketsList = [];
 		obj.forEach((el)=>{
 			let item = {}
 			for (const key in el) {
@@ -77,15 +93,19 @@ export default class Tickets{
 			}
 			this.ticketsList.push(item)
 		});
+		
 	}
 
 
-	@action load(){
+	@action load = (pa = null)=>{
 		return new Promise((resolve)=>{
-			this.api.tickets.load({key: 'origin',value: 'usd'}).then((data)=>{
+			this.api.tickets.load(pa).then((data)=>{
 				runInAction(() => {
 					this.changeTicketsListAPI(data.data);
 					this.changeLoading();
+					if (pa) {
+						this.changeFilterSetings(pa[0],pa[1])
+					}
 					resolve();
 				});
 			});
