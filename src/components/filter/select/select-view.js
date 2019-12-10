@@ -8,15 +8,16 @@ import Select from '@material-ui/core/Select';
 
 
 export default function SelectView (props){
+  console.log(props.id);
   
 	return (
 		<FormControl className={styles.formControl}>
-        <InputLabel id={`${props.label}_demo-simple-select-label`}>{props.label}</InputLabel>
+        <InputLabel id={`${props.id}_demo-simple-select-label`}>{props.label}</InputLabel>
         <Select
-          labelId={`${props.label}_demo-simple-select-label`}
-          id={`${props.label}"demo-simple-select`}
+          labelId={`${props.id}_demo-simple-select-label`}
+          id={`${props.id}"demo-simple-select`}
           value={props.defaultValue}
-          onChange={(e)=>{props.onChange([e.target.value, props.label])}}
+          onChange={(e)=>{props.onChange([e.target.value, props.getKey])}}
         >
           {props.selectItem.map(el=> <MenuItem key={`${el}1`} value={el}>{el}</MenuItem>)}
         </Select>

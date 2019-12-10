@@ -12,19 +12,26 @@ import {
 
 
 export default function DataPickerView (props){
-  
+  const handleDateChange = date => {
+    const Y = date.getFullYear();
+    const M = date.getMonth() + 1;
+    const D = date.getDate();
+    //console.log(`${Y}-${M}-${D}`, props.getKey);
+    
+    props.onChange([`${Y}-${M}-${D}`, props.getKey]);
+  };
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
           disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
+          variant={props.variant}
+          format={props.format}
           margin="normal"
-          id="date-picker-inline"
-          label="Date picker inline"
-          value={'2014-08-18T21:11:54'}
-          onChange={()=>{}}
+          id={props.id}
+          label={props.label}
+          value={props.defaultValue}
+          onChange={handleDateChange}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}

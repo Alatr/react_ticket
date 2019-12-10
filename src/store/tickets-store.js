@@ -9,15 +9,30 @@ export default class Tickets{
 	@observable loading = true;
 	@observable filterSetings = {
 			currency: {
-				label: 'currency',
+				type: 'select',
+				label: 'Currency',
+				getKey: 'currency',
+				id: 'currency',
 				value: 'uah',
 				params: [`uah`,`usd`,`eur`,'rub']
 			},
 			limit: {
-				label: 'limit',
+				type: 'select',
+				label: 'Limit',
+				getKey: 'limit',
+				id: 'limit',
 				value: '10',
 				params: [`10`,`20`,`30`,'40']
-			}
+			},
+			beginning_of_period: {
+				type: 'picker',
+				label: 'Departure date',
+				value: new Date(),
+				getKey: "beginning_of_period",
+				id: "date-picker-inline",
+				format: "yyyy/MM/dd",
+				variant: "inline",
+			},
 		};
 	@observable ticketsList = [];
 	@observable tableCell = [
@@ -79,6 +94,8 @@ export default class Tickets{
 		this.loading = false;
 	}
 	@action changeFilterSetings(val, label ){
+		console.log(val, label,'----');
+		
 		this.filterSetings[label].value = val
 	}
 
