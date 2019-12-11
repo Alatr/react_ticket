@@ -12,7 +12,6 @@ class Filter extends React.Component{
       for (const key in rootStore.tickets.filterSetings) {
          if (rootStore.tickets.filterSetings.hasOwnProperty(key)) {
             const element = rootStore.tickets.filterSetings[key];
-            console.log(element);
             
             switch (element.type) {
                case 'select':

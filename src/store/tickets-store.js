@@ -43,6 +43,18 @@ export default class Tickets{
 				format: this.rootStore.mainStore.formatRule.bool
 		},
 		{
+				key: 'gate',
+				label: 'Site',
+				id: 'id_gate,',
+				format: this.rootStore.mainStore.formatRule.string
+		},
+		{
+				key: 'distance',
+				label: 'расстояние ',
+				id: 'id_distance,',
+				format: this.rootStore.mainStore.formatRule.number
+		},
+		{
 				key: 'depart_date',
 				label: 'дата отправления',
 				id: 'id_depart_date,',
@@ -94,8 +106,6 @@ export default class Tickets{
 		this.loading = false;
 	}
 	@action changeFilterSetings(val, label ){
-		console.log(val, label,'----');
-		
 		this.filterSetings[label].value = val
 	}
 
@@ -122,6 +132,8 @@ export default class Tickets{
 					this.changeLoading();
 					if (pa) {
 						this.changeFilterSetings(pa[0],pa[1])
+						console.log(data.data,'----------');
+						
 					}
 					resolve();
 				});

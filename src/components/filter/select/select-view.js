@@ -8,7 +8,6 @@ import Select from '@material-ui/core/Select';
 
 
 export default function SelectView (props){
-  console.log(props.id);
   
 	return (
 		<FormControl className={styles.formControl}>

@@ -7,6 +7,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
 
 
 export default class extends PureComponent{
@@ -41,6 +43,24 @@ export default class extends PureComponent{
 						 <TableBody>
 							 {tableBody}
 						 </TableBody>
+						 <TableFooter>
+								<TableRow>
+									<TablePagination
+										rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+										colSpan={3}
+										count={10}
+										rowsPerPage={10}
+										page={10}
+										SelectProps={{
+											inputProps: { 'aria-label': 'rows per page' },
+											native: true,
+										}}
+										onChangePage={'handleChangePage'}
+										onChangeRowsPerPage={'handleChangeRowsPerPage'}
+										ActionsComponent={'TablePaginationActions'}
+									/>
+								</TableRow>
+							</TableFooter>
 					 </Table>
 				 </div>
 			 </Paper>
