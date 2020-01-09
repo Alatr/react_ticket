@@ -21,6 +21,10 @@ class Tickets extends React.Component{
 				<Spinner/> :
 				<TicketsView tableCell = {ticketsStore.tableCell}
 										 ticketsList={ticketsListDetails}
+										 ticketsLength={ticketsStore.ticketsLength}
+										 selectItems={ticketsStore.tablePaginationSattings.selectItems}
+										 numberRows={ticketsStore.tablePaginationSattings.numberRows}
+										 page={ticketsStore.tablePaginationSattings.page}
 				/>;
 		 
    }

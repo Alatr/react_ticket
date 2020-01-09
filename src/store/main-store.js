@@ -52,6 +52,8 @@ export default class MainStore{
 					this.cityInfo = data;
 					this.parseIATAData();
 					resolve();
+					console.log(this.cityInfo);
+					
 				});
 			});
 		});

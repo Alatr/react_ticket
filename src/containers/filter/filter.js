@@ -7,7 +7,9 @@ import withStore from '~/hocs/withStore';
 
 
 class Filter extends React.Component{
+   
    render(){
+      console.log(rootStore.tickets.ticketsLength);
       let selects = [];
       for (const key in rootStore.tickets.filterSetings) {
          if (rootStore.tickets.filterSetings.hasOwnProperty(key)) {

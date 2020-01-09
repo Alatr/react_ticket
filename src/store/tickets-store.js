@@ -22,7 +22,7 @@ export default class Tickets{
 				getKey: 'limit',
 				id: 'limit',
 				value: '10',
-				params: [`10`,`20`,`30`,'40']
+				params: [`10`,`20`,`30`,'40','1000']
 			},
 			beginning_of_period: {
 				type: 'picker',
@@ -35,6 +35,11 @@ export default class Tickets{
 			},
 		};
 	@observable ticketsList = [];
+	@observable tablePaginationSattings = {
+		selectItems: [3, 5, { label: 'All', value: -1 }],
+		numberRows: 3,
+		page: -1
+	};
 	@observable tableCell = [
 		{
 				key: 'actual',
@@ -101,6 +106,9 @@ export default class Tickets{
 
 	@computed get tableCellKey() {
 		return this.tableCell.map(el => el.key)
+	}
+	@computed get ticketsLength() {
+		return this.ticketsList.length 
 	}
 	@action changeLoading(){
 		this.loading = false;

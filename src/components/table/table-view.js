@@ -13,18 +13,19 @@ import TablePagination from '@material-ui/core/TablePagination';
 
 export default class extends PureComponent{
 	render(){
-		let {tableCell, ticketsList} = this.props
+		let {page, tableCell, ticketsList, ticketsLength, numberRows, selectItems} = this.props
 	
 		let tableCellView = tableCell.map(column => {
 			return 	<TableCell key={column.id} >
 								{column.label}
 							</TableCell>
 		});
-		let tableBody = ticketsList.map((row, i) => {
+		let tableBody = ticketsList
+										.slice(page * numberRows, page * numberRows + numberRows)
+										.map((row, i) => {
 			return  <TableRow key={i}>
 								{tableCell.map(column => {
 									const value = row[column.key];
-									console.log('tableBody  TableCell redder');
 									return <TableCell key={column.id} >
 														{column.format && typeof value === 'number' ? column.format(value, 2) : column.format(value)}
 													</TableCell>
@@ -46,18 +47,17 @@ export default class extends PureComponent{
 						 <TableFooter>
 								<TableRow>
 									<TablePagination
-										rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-										colSpan={3}
-										count={10}
-										rowsPerPage={10}
-										page={10}
+										rowsPerPageOptions={selectItems}
+										count={ticketsLength}
+										rowsPerPage={numberRows}
+										page={page}
 										SelectProps={{
 											inputProps: { 'aria-label': 'rows per page' },
 											native: true,
 										}}
-										onChangePage={'handleChangePage'}
-										onChangeRowsPerPage={'handleChangeRowsPerPage'}
-										ActionsComponent={'TablePaginationActions'}
+										onChangePage={()=> null}
+										onChangeRowsPerPage={()=> null}
+										ActionsComponent={()=> null}
 									/>
 								</TableRow>
 							</TableFooter>
