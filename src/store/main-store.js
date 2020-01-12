@@ -28,7 +28,11 @@ export default class MainStore{
 			},
 			parseCityCode: (val)=>{
 				return (this.IATAData) ? this.IATAData[val] : val;
-				
+			},
+			parseDate: (val)=>{
+				if (val != null) {
+					return val.slice(0,10);
+				}
 			}
 		}
 	}

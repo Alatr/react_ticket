@@ -15,7 +15,6 @@ class Tickets extends React.Component{
 			let ticketsListDetails = ticketsStore.ticketsList.map(field => {
 				return {...field}
 			});
-			console.log('render');
 			
 			 return (rootStore.tickets.loading) ? 
 				<Spinner/> :
@@ -24,7 +23,12 @@ class Tickets extends React.Component{
 										 ticketsLength={ticketsStore.ticketsLength}
 										 selectItems={ticketsStore.tablePaginationSattings.selectItems}
 										 numberRows={ticketsStore.tablePaginationSattings.numberRows}
+										 handleNextButtonClick={ticketsStore.handleNextButtonClick}
+										 handleBackButtonClick={ticketsStore.handleBackButtonClick}
+										 handleFirstPageButtonClick={ticketsStore.handleFirstPageButtonClick}
+										 handleLastPageButtonClick={ticketsStore.handleLastPageButtonClick}
 										 page={ticketsStore.tablePaginationSattings.page}
+										 handleChangeRowsPerPage={ticketsStore.handleChangeRowsPerPage}
 				/>;
 		 
    }

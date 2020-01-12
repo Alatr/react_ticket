@@ -5,3 +5,7 @@
 .root{
 	width: 100%;
 }
+.pagination_wrap{
+	display: flex;
+	align-items: center;
+}

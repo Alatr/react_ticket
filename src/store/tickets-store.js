@@ -16,14 +16,6 @@ export default class Tickets{
 				value: 'uah',
 				params: [`uah`,`usd`,`eur`,'rub']
 			},
-			limit: {
-				type: 'select',
-				label: 'Limit',
-				getKey: 'limit',
-				id: 'limit',
-				value: '10',
-				params: [`10`,`20`,`30`,'40','1000']
-			},
 			beginning_of_period: {
 				type: 'picker',
 				label: 'Departure date',
@@ -36,9 +28,9 @@ export default class Tickets{
 		};
 	@observable ticketsList = [];
 	@observable tablePaginationSattings = {
-		selectItems: [3, 5, { label: 'All', value: -1 }],
-		numberRows: 3,
-		page: -1
+		selectItems: [5, 10, 15, 20,  { label: 'All', value: -1 }],
+		numberRows: 5,
+		page: 0
 	};
 	@observable tableCell = [
 		{
@@ -99,7 +91,7 @@ export default class Tickets{
 				key: 'found_at',
 				label: 'когда был найден билет',
 				id: 'id_found_at,',
-				format: this.rootStore.mainStore.formatRule.string
+				format: this.rootStore.mainStore.formatRule.parseDate
 		},
 	];
 
@@ -112,6 +104,23 @@ export default class Tickets{
 	}
 	@action changeLoading(){
 		this.loading = false;
+	}
+	@action handleChangeRowsPerPage = (e)=>{
+		console.log(parseInt(e.target.value, 10));
+		this.tablePaginationSattings.numberRows = parseInt(e.target.value, 10);
+		
+	}
+	@action handleNextButtonClick = ()=>{
+		this.tablePaginationSattings.page = this.tablePaginationSattings.page + 1;
+	}
+	@action handleBackButtonClick = ()=>{
+		this.tablePaginationSattings.page = this.tablePaginationSattings.page - 1;
+	}
+	@action handleFirstPageButtonClick = ()=>{
+		this.tablePaginationSattings.page = 0;
+	}
+	@action handleLastPageButtonClick = ()=>{
+		this.tablePaginationSattings.page = Math.ceil(this.ticketsLength / this.tablePaginationSattings.numberRows) - 1;
 	}
 	@action changeFilterSetings(val, label ){
 		this.filterSetings[label].value = val
