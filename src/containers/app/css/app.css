@@ -18,6 +18,9 @@ body {
 	position: sticky;
 	
 }
+.MuiTextField-root{
+	width: 100%;
+}
 .content{
 	width: 85%;
 }

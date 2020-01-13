@@ -14,11 +14,12 @@ import {
 export default function DataPickerView (props){
   const handleDateChange = date => {
     const Y = date.getFullYear();
-    const M = date.getMonth() + 1;
+		let M = date.getMonth() + 1;
+		if(M < 10) M = '0' + M		
     const D = date.getDate();
     //console.log(`${Y}-${M}-${D}`, props.getKey);
     
-    props.onChange([`${Y}-${M}-${D}`, props.getKey]);
+    props.onChange(`${Y}-${M}-${D}`);
   };
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>

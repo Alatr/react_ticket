@@ -105,6 +105,21 @@ export default class Tickets{
 	@action changeLoading(){
 		this.loading = false;
 	}
+	@action filterDepatureData = (e) => {
+		
+		this.ticketsList = this.ticketsList.filter((el) => {
+			//console.log(el.depart_date, e);
+			let a = Date.parse(el.depart_date);
+			let b = Date.parse(e);
+			//console.log(a, b, a == b);
+			
+			//console.log(Date.parse(new Date('2020-03-11')), Date.parse(new Date(e)), new Date('2020-03-11') == new Date('2020-03-11'));
+			console.log(a == b);
+			
+			return a == b;
+		});
+		
+	}
 	@action handleChangeRowsPerPage = (e)=>{
 		console.log(parseInt(e.target.value, 10));
 		this.tablePaginationSattings.numberRows = parseInt(e.target.value, 10);
