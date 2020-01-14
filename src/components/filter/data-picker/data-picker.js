@@ -19,7 +19,7 @@ export default function DataPickerView (props){
     const D = date.getDate();
     //console.log(`${Y}-${M}-${D}`, props.getKey);
     
-    props.onChange(`${Y}-${M}-${D}`);
+    props.onChange(`${Y}-${M}-${D}`, props.getKey);
   };
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>

@@ -36,7 +36,7 @@ class Filter extends React.Component{
                                        format={element.format}
                                        getKey={element.getKey}
                                        id={element.id}
-                                       onChange={rootStore.tickets.filterDepatureData}
+                                       onChange={rootStore.tickets.filterData}
                      
                      />
                   )

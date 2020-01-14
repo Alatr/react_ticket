@@ -18,10 +18,19 @@ export default class Tickets{
 			},
 			beginning_of_period: {
 				type: 'picker',
-				label: 'Departure date',
+				label: 'дата отправления',
 				value: new Date(),
-				getKey: "beginning_of_period",
-				id: "date-picker-inline",
+				getKey: "depart_date",
+				id: "date-picker-inline-depart",
+				format: "yyyy/MM/dd",
+				variant: "inline",
+			},
+			return_of_period: {
+				type: 'picker',
+				label: 'дата возвращения',
+				value: new Date(),
+				getKey: "return_date",
+				id: "date-picker-inline-return",
 				format: "yyyy/MM/dd",
 				variant: "inline",
 			},
@@ -105,21 +114,20 @@ export default class Tickets{
 	@action changeLoading(){
 		this.loading = false;
 	}
-	@action filterDepatureData = (e) => {
-		
+	@action filterData = (e, pikerName) => {
 		this.ticketsList = this.ticketsList.filter((el) => {
-			//console.log(el.depart_date, e);
-			let a = Date.parse(el.depart_date);
+			let a = Date.parse(el[pikerName]);
 			let b = Date.parse(e);
-			//console.log(a, b, a == b);
-			
-			//console.log(Date.parse(new Date('2020-03-11')), Date.parse(new Date(e)), new Date('2020-03-11') == new Date('2020-03-11'));
-			console.log(a == b);
-			
 			return a == b;
 		});
-		
+		for (const key in this.filterSetings) {
+				const element = this.filterSetings[key];
+				if(element.getKey == pikerName) element.value = e;
+		}
 	}
+	
+
+
 	@action handleChangeRowsPerPage = (e)=>{
 		console.log(parseInt(e.target.value, 10));
 		this.tablePaginationSattings.numberRows = parseInt(e.target.value, 10);
