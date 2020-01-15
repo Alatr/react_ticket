@@ -4,6 +4,7 @@ import DataPickerView from '~/components/filter/data-picker';
 import styles from './css/sidebar.module.css';
 import rootStore from '~/store';
 import withStore from '~/hocs/withStore';
+import SliderView from '~/components/filter/slaider';
 
 
 class Filter extends React.Component{
@@ -25,6 +26,21 @@ class Filter extends React.Component{
                                  defaultValue={element.value}
                                  onChange={rootStore.tickets.load}
                      />
+                  )
+               break;
+               case 'slider':
+                  selects.push(
+                    <SliderView
+											key={key}
+											min={element.min}
+											value={element.value}
+											max={element.max}
+											onChange={()=> null}
+											valueLabelDisplay={element.valueLabelDisplay}
+											label = {element.label}
+											aria-labelledby="range-slider"
+											getAriaValueText={()=> null}
+										/>
                   )
                break;
                case 'picker':

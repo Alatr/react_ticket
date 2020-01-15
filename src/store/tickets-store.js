@@ -34,11 +34,22 @@ export default class Tickets{
 				format: "yyyy/MM/dd",
 				variant: "inline",
 			},
+			slider_price: {
+				type: 'slider',
+				valueLabelDisplay: 'on',
+				label: 'Цена',
+				value: null,
+				min: 0,
+				max: 150,
+				defaultValue: 10,
+				onChange: ()=> null,
+				onChangeCommitted: () => null
+			},
 		};
 	@observable ticketsList = [];
 	@observable tablePaginationSattings = {
-		selectItems: [5, 10, 15, 20,  { label: 'All', value: -1 }],
-		numberRows: 5,
+		selectItems: [15, 20, 25, 30,  { label: 'All', value: -1 }],
+		numberRows: 15,
 		page: 0
 	};
 	@observable tableCell = [
