@@ -38,14 +38,14 @@ export default class Tickets{
 				type: 'slider',
 				valueLabelDisplay: 'on',
 				label: 'Цена',
-				value: null,
-				min: 0,
-				max: 150,
+				value: [1,66],
+				min: this.min[0],
+				max: 1500,
 				defaultValue: 10,
 				onChange: ()=> null,
 				onChangeCommitted: () => null
 			},
-		};
+	};
 	@observable ticketsList = [];
 	@observable tablePaginationSattings = {
 		selectItems: [15, 20, 25, 30,  { label: 'All', value: -1 }],
@@ -136,13 +136,20 @@ export default class Tickets{
 				if(element.getKey == pikerName) element.value = e;
 		}
 	}
-	
+	@observable min = [10,100]
 
 
-	@action handleChangeRowsPerPage = (e)=>{
-		console.log(parseInt(e.target.value, 10));
-		this.tablePaginationSattings.numberRows = parseInt(e.target.value, 10);
+	@action minMax = (arr)=>{
+		let priceArr = arr.map((el, i) => this.ticketsList[i].value);
+		console.log([Math.min(...priceArr),Math.max(...priceArr)]);
 		
+		this.min = [Math.min(...priceArr),Math.max(...priceArr)];
+	}
+	
+	@action handleChangeRowsPerPage = (e)=>{
+		console.log(this.minMax(this.ticketsList));
+		
+		this.tablePaginationSattings.numberRows = parseInt(e.target.value, 10);
 	}
 	@action handleNextButtonClick = ()=>{
 		this.tablePaginationSattings.page = this.tablePaginationSattings.page + 1;
