@@ -5,6 +5,8 @@ import styles from './css/sidebar.module.css';
 import rootStore from '~/store';
 import withStore from '~/hocs/withStore';
 import SliderView from '~/components/filter/slaider';
+import Spinner from '~/components/errors/spinner';
+
 
 
 class Filter extends React.Component{
@@ -32,14 +34,18 @@ class Filter extends React.Component{
                   selects.push(
                     <SliderView
 											key={key}
-											min={element.min}
-											value={element.value}
-											max={element.max}
-											onChange={()=> null}
+											value={rootStore.tickets.minMax}
+											//max={rootStore.tickets.minMaxTickets[key][1]}
+											//min={rootStore.tickets.minMaxTickets[key][0]}
+											//defaultValue={rootStore.tickets.minMaxTickets[key][0]}
+											// onChange={(e,val)=>{
+                                 //    console.log(val, rootStore.tickets.minMaxTickets[key]);
+                                    
+                                 //    rootStore.tickets.minMaxTickets[key] = val}
+                                 // } 
 											valueLabelDisplay={element.valueLabelDisplay}
 											label = {element.label}
 											aria-labelledby="range-slider"
-											getAriaValueText={()=> null}
 										/>
                   )
                break;
@@ -63,10 +69,11 @@ class Filter extends React.Component{
             
          }
       }
-      return <>
-         <h2>Filter</h2>
-         {selects}
-      </>
+       return (rootStore.tickets.loading) ? 
+				<Spinner/> :
+				<> <h2>Filter</h2>
+               {selects}
+            </>;
    }
 }
 

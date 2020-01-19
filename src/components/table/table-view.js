@@ -69,7 +69,6 @@ export default class extends PureComponent{
 								})}
 							</TableRow>
 		})
-		console.log('re');
 		
 	return (
 		<Paper className={styles.root}>

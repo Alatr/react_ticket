@@ -7,6 +7,7 @@ export default class Tickets{
     this.city = this.rootStore.cityData;
 	}
 	@observable loading = true;
+
 	@observable filterSetings = {
 			currency: {
 				type: 'select',
@@ -38,12 +39,8 @@ export default class Tickets{
 				type: 'slider',
 				valueLabelDisplay: 'on',
 				label: 'Цена',
-				value: [1,66],
-				min: this.min[0],
-				max: 1500,
-				defaultValue: 10,
-				onChange: ()=> null,
-				onChangeCommitted: () => null
+				onChangeCommitted: () => console.log('jngrcn')
+				
 			},
 	};
 	@observable ticketsList = [];
@@ -114,8 +111,6 @@ export default class Tickets{
 				format: this.rootStore.mainStore.formatRule.parseDate
 		},
 	];
-
-
 	@computed get tableCellKey() {
 		return this.tableCell.map(el => el.key)
 	}
@@ -136,19 +131,47 @@ export default class Tickets{
 				if(element.getKey == pikerName) element.value = e;
 		}
 	}
-	@observable min = [10,100]
+	// @observable  minMaxTickets = {
+	// 		slider_price: this.minMax(this.ticketsList, 'value')
+	// }
+	// @computed get minMaxTickets(){
+	// 	return{
+	// 		slider_price: this.minMax(this.ticketsList, 'value')
+	// 	}
+	// }
+	@action handleChangeValueSlaider = (e,val)=>{
+		
+		//this.minMaxTickets.slider_price = val;
+		console.log(val,this.minMaxTickets.slider_price );
+
+	}
 
 
-	@action minMax = (arr)=>{
-		let priceArr = arr.map((el, i) => this.ticketsList[i].value);
+	// minMax = (arr, key)=>{
+	// 	let priceArr = arr.map((el, i) => this.ticketsList[i][key]);
+	// 	console.log(this.ticketsList);
+		
+	// 	//return [Math.min(...priceArr),Math.max(...priceArr)];
+	// 	return [10,111];
+	// }
+	// @computed get minMax() {
+	// return  (arr, key)=>{
+	// 	let priceArr = arr.map((el, i) => this.ticketsList[i][key]);
+	// 	console.log(this.ticketsList);
+		
+	// 	//return [Math.min(...priceArr),Math.max(...priceArr)];
+	// 	return [10,111];
+	// }
+	@computed get minMax() {
+		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
 		console.log([Math.min(...priceArr),Math.max(...priceArr)]);
 		
-		this.min = [Math.min(...priceArr),Math.max(...priceArr)];
+		//return [Math.min(...priceArr),Math.max(...priceArr)];
+		return [10,111];
 	}
 	
+
 	@action handleChangeRowsPerPage = (e)=>{
-		console.log(this.minMax(this.ticketsList));
-		
 		this.tablePaginationSattings.numberRows = parseInt(e.target.value, 10);
 	}
 	@action handleNextButtonClick = ()=>{
@@ -188,9 +211,9 @@ export default class Tickets{
 				runInAction(() => {
 					this.changeTicketsListAPI(data.data);
 					this.changeLoading();
+
 					if (pa) {
-						this.changeFilterSetings(pa[0],pa[1])
-						console.log(data.data,'----------');
+						this.changeFilterSetings(pa[0],pa[1]);
 						
 					}
 					resolve();

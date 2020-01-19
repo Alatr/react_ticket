@@ -14,10 +14,9 @@ export default function SelectView (props){
 					min={props.min}
 					value={props.value}
 					max={props.max}
-					onChange={()=> null}
+					onChange={props.onChange}
 					valueLabelDisplay={props.valueLabelDisplay}
 					aria-labelledby="range-slider"
-					getAriaValueText={()=> null}
 			/>
 		</>
 	);

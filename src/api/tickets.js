@@ -13,7 +13,6 @@ function load(param){
 		url = url.replace(match, val);
 	}
 	
-	console.log(url);
 	return makeRequest(url);
 }
 
