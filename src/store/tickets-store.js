@@ -36,10 +36,6 @@ export default class Tickets{
 				variant: "inline",
 			},
 			slider_price: {
-				type: 'slider',
-				valueLabelDisplay: 'on',
-				label: 'Цена',
-				onChangeCommitted: () => console.log('jngrcn')
 				
 			},
 	};
@@ -139,10 +135,16 @@ export default class Tickets{
 	// 		slider_price: this.minMax(this.ticketsList, 'value')
 	// 	}
 	// }
+
+	@observable slider = {
+		value : [0,0]
+	}
 	@action handleChangeValueSlaider = (e,val)=>{
 		
-		//this.minMaxTickets.slider_price = val;
-		console.log(val,this.minMaxTickets.slider_price );
+		this.slider.value = val;
+		console.log('as');
+		
+		//console.log(val,this.minMaxTickets.slider_price );
 
 	}
 
@@ -164,10 +166,10 @@ export default class Tickets{
 	// }
 	@computed get minMax() {
 		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
-		console.log([Math.min(...priceArr),Math.max(...priceArr)]);
+		//console.log([Math.min(...priceArr),Math.max(...priceArr)]);
 		
-		//return [Math.min(...priceArr),Math.max(...priceArr)];
-		return [10,111];
+		return [Math.min(...priceArr),Math.max(...priceArr)];
+		//return [10,111];
 	}
 	
 
