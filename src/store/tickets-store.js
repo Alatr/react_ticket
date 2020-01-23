@@ -143,27 +143,32 @@ export default class Tickets{
 	// }
 
 	@observable slider = {
-		value : [0,0]
+		value : this.limit()
 	}
 	@action handleChangeValueSlaider = (e,val)=>{
 		
-		console.log('as', val);
+		console.log(this.limit()[1],'as', val);
 		console.log(toJS(this.slider.value));
-		let d = val.slice().sort();
-		this.slider.value = d
+		//let d = val.slice().sort();
+		this.slider.value = val
 		
 		//console.log(val,this.minMaxTickets.slider_price );
 
 	}
 
 
-	// minMax = (arr, key)=>{
-	// 	let priceArr = arr.map((el, i) => this.ticketsList[i][key]);
-	// 	console.log(this.ticketsList);
+	limit = ()=>{
+		//let priceArr = arr.map((el, i) => this.ticketsList[i][key]);
+		//console.log(this.ticketsList);
+	//	console.log(this.minMax);
+		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
+	//	console.log([Math.min(...priceArr),Math.max(...priceArr)]);
 		
-	// 	//return [Math.min(...priceArr),Math.max(...priceArr)];
-	// 	return [10,111];
-	// }
+		return [Math.min(...priceArr),Math.max(...priceArr)];
+		
+		return this.minMax;
+		//return [800,11051];
+	}
 	// @computed get minMax() {
 	// return  (arr, key)=>{
 	// 	let priceArr = arr.map((el, i) => this.ticketsList[i][key]);
@@ -179,6 +184,11 @@ export default class Tickets{
 		
 		return [Math.min(...priceArr),Math.max(...priceArr)];
 		//return [10,111];
+	}
+	@computed get priceList() {
+		console.log('arr', this.ticketsList);
+		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
+
 	}
 	
 

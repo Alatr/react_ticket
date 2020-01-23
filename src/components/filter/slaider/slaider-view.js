@@ -18,6 +18,8 @@ export default function SelectView (props){
 					valueLabelDisplay={props.valueLabelDisplay}
 					aria-labelledby="range-slider"
 			/>
+			<Typography >{props.value[0]}</Typography>
+			<Typography >{props.value[1]}</Typography>
 		</>
 	);
 }

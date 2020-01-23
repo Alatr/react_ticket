@@ -48,21 +48,18 @@ class Filter extends React.Component{
 										 )
                break;
                case 'slider':
-								 console.log('--------', toJS(rootStore.tickets.slider).value[1], toJS(rootStore.tickets.slider).value[0]);
-								 console.log('--------', toJS(rootStore.tickets.slider));
-										
+console.log(toJS(rootStore.tickets.minMax)[0],toJS(rootStore.tickets.minMax)[1]);
+
 										
 										selects.push(
 											 <SliderView
-											 		key={key}
-													valueLabelDisplay={'on'}
-												// 	label={'Цена'}
+												key={key}
+												label={'Цена'}
 												//  	onChangeCommitted={() => console.log('jngrcn')}
-												//	value = {toJS(rootStore.tickets.slider)}
-													value = {rootStore.tickets.slider.value}
-												// 	// value={rootStore.tickets.minMax.slice()}
-												max={toJS(rootStore.tickets.minMax)[1]}
-												min={toJS(rootStore.tickets.minMax)[0]}
+												value = {toJS(rootStore.tickets.slider.value)}
+												//	value = {[toJS(rootStore.tickets.minMax)[0],toJS(rootStore.tickets.minMax)[1]]}
+												max={rootStore.tickets.minMax[1]}
+												min={rootStore.tickets.minMax[0]}
 												//  //defaultValue={rootStore.tickets.minMaxTickets[key][0]}
 												onChange={rootStore.tickets.handleChangeValueSlaider} 
 												aria-labelledby="range-slider"
