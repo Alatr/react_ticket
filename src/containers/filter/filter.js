@@ -6,6 +6,7 @@ import rootStore from '~/store';
 import withStore from '~/hocs/withStore';
 import SliderView from '~/components/filter/slaider';
 import Spinner from '~/components/errors/spinner';
+import {toJS} from 'mobx';
 
 
 
@@ -23,6 +24,8 @@ class Filter extends React.Component{
 		// Популярный пример (не забудьте сравнить пропсы):
 		if (rootStore.tickets.minMax == prevProps.stores.tickets.minMax) {
 			//this.fetchData(this.props.userID);
+			console.log('ровно');
+			
 		}
 	}
 	render(){
@@ -45,41 +48,43 @@ class Filter extends React.Component{
 										 )
                break;
                case 'slider':
-								 break;
-								 case 'picker':
-									 selects.push(
-                     <DataPickerView   label={element.label}
-										 key={key}
-                                       defaultValue={element.value}
-                                       variant={element.variant}
-                                       format={element.format}
-                                       getKey={element.getKey}
-                                       id={element.id}
-                                       onChange={rootStore.tickets.filterData}
-                     
-																			 />
-                  )
-                  break;
-									default:
-										console.log('--------', rootStore.tickets.minMax.slice());
+								 console.log('--------', toJS(rootStore.tickets.slider).value[1], toJS(rootStore.tickets.slider).value[0]);
+								 console.log('--------', toJS(rootStore.tickets.slider));
 										
 										
 										selects.push(
 											 <SliderView
-											 		key={'!@#$%^&*()'}
-													type={'slider'}
+											 		key={key}
 													valueLabelDisplay={'on'}
-													label={'Цена'}
-												 	onChangeCommitted={() => console.log('jngrcn')}
-													 value={rootStore.tickets.slider.value}
-													// value={rootStore.tickets.minMax.slice()}
-													 max={rootStore.tickets.minMaxTickets[key][1]}
-												 min={rootStore.tickets.minMaxTickets[key][0]}
-												 //defaultValue={rootStore.tickets.minMaxTickets[key][0]}
-												 onChange={rootStore.tickets.handleChangeValueSlaider} 
-												 aria-labelledby="range-slider"
+												// 	label={'Цена'}
+												//  	onChangeCommitted={() => console.log('jngrcn')}
+												//	value = {toJS(rootStore.tickets.slider)}
+													value = {rootStore.tickets.slider.value}
+												// 	// value={rootStore.tickets.minMax.slice()}
+												max={toJS(rootStore.tickets.minMax)[1]}
+												min={toJS(rootStore.tickets.minMax)[0]}
+												//  //defaultValue={rootStore.tickets.minMaxTickets[key][0]}
+												onChange={rootStore.tickets.handleChangeValueSlaider} 
+												aria-labelledby="range-slider"
 											 />
 										 )
+								 break;
+								case 'picker':
+									selects.push(
+										<DataPickerView   label={element.label}
+										key={key}
+																			defaultValue={element.value}
+																			variant={element.variant}
+																			format={element.format}
+																			getKey={element.getKey}
+																			id={element.id}
+																			onChange={rootStore.tickets.filterData}
+										
+																			/>
+								)
+								break;
+									default:
+										
                   break;
 								}
             

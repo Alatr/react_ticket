@@ -1,4 +1,10 @@
-import { observable, computed, action, runInAction } from 'mobx';
+import {
+	observable,
+	computed,
+	action,
+	runInAction,
+	toJS
+} from 'mobx';
 
 export default class Tickets{
 	constructor(rootStore){
@@ -35,8 +41,8 @@ export default class Tickets{
 				format: "yyyy/MM/dd",
 				variant: "inline",
 			},
-			slider_price: {
-				
+			slider: {
+				type: 'slider'
 			},
 	};
 	@observable ticketsList = [];
@@ -141,8 +147,10 @@ export default class Tickets{
 	}
 	@action handleChangeValueSlaider = (e,val)=>{
 		
-		this.slider.value = val;
-		console.log('as');
+		console.log('as', val);
+		console.log(toJS(this.slider.value));
+		let d = val.slice().sort();
+		this.slider.value = d
 		
 		//console.log(val,this.minMaxTickets.slider_price );
 
@@ -165,8 +173,9 @@ export default class Tickets{
 	// 	return [10,111];
 	// }
 	@computed get minMax() {
+		console.log('arr', this.ticketsList);
 		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
-		//console.log([Math.min(...priceArr),Math.max(...priceArr)]);
+		console.log([Math.min(...priceArr),Math.max(...priceArr)]);
 		
 		return [Math.min(...priceArr),Math.max(...priceArr)];
 		//return [10,111];
