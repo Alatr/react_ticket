@@ -5,7 +5,6 @@ import styles from '~/containers/app/css/app.css';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { routes } from '~/router';
 import Logo from './img/my.svg';
-
 export default class App extends React.Component{
    render(){
       

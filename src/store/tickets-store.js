@@ -133,62 +133,20 @@ export default class Tickets{
 				if(element.getKey == pikerName) element.value = e;
 		}
 	}
-	// @observable  minMaxTickets = {
-	// 		slider_price: this.minMax(this.ticketsList, 'value')
-	// }
-	// @computed get minMaxTickets(){
-	// 	return{
-	// 		slider_price: this.minMax(this.ticketsList, 'value')
-	// 	}
-	// }
 
 	@observable slider = {
-		value : this.limit()
+		value : (()=>{
+				let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
+				return [Math.min(...priceArr),Math.max(...priceArr)];			
+		})()
 	}
 	@action handleChangeValueSlaider = (e,val)=>{
-		
-		console.log(this.limit()[1],'as', val);
-		console.log(toJS(this.slider.value));
-		//let d = val.slice().sort();
 		this.slider.value = val
-		
-		//console.log(val,this.minMaxTickets.slider_price );
-
 	}
 
-
-	limit = ()=>{
-		//let priceArr = arr.map((el, i) => this.ticketsList[i][key]);
-		//console.log(this.ticketsList);
-	//	console.log(this.minMax);
-		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
-	//	console.log([Math.min(...priceArr),Math.max(...priceArr)]);
-		
-		return [Math.min(...priceArr),Math.max(...priceArr)];
-		
-		return this.minMax;
-		//return [800,11051];
-	}
-	// @computed get minMax() {
-	// return  (arr, key)=>{
-	// 	let priceArr = arr.map((el, i) => this.ticketsList[i][key]);
-	// 	console.log(this.ticketsList);
-		
-	// 	//return [Math.min(...priceArr),Math.max(...priceArr)];
-	// 	return [10,111];
-	// }
 	@computed get minMax() {
-		console.log('arr', this.ticketsList);
 		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
-		console.log([Math.min(...priceArr),Math.max(...priceArr)]);
-		
-		return [Math.min(...priceArr),Math.max(...priceArr)];
-		//return [10,111];
-	}
-	@computed get priceList() {
-		console.log('arr', this.ticketsList);
-		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
-
+		return [Math.floor(Math.min(...priceArr)),Math.floor(Math.max(...priceArr))];
 	}
 	
 

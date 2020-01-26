@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 export default function SelectView (props){
-  
+	
 	return (
 		<>
 			<Typography id="range-slider">{props.label}</Typography>
@@ -17,9 +17,8 @@ export default function SelectView (props){
 					onChange={props.onChange}
 					valueLabelDisplay={props.valueLabelDisplay}
 					aria-labelledby="range-slider"
+					valueLabelDisplay={'on'}
 			/>
-			<Typography >{props.value[0]}</Typography>
-			<Typography >{props.value[1]}</Typography>
 		</>
 	);
 }
