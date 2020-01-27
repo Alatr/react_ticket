@@ -8,6 +8,7 @@ export default class MainStore{
 	}
 	@observable cityInfo = null;
 	@observable IATAData = null;
+	@observable ticketsList = [];
 
 	get formatRule() {
 		return {

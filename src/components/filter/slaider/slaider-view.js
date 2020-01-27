@@ -16,6 +16,7 @@ export default function SelectView (props){
 					max={props.max}
 					onChange={props.onChange}
 					valueLabelDisplay={props.valueLabelDisplay}
+					onChangeCommitted={props.onChangeCommitted}
 					aria-labelledby="range-slider"
 					valueLabelDisplay={'on'}
 			/>

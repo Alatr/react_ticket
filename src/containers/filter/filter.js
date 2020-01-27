@@ -40,6 +40,7 @@ class Filter extends React.Component{
 												max={rootStore.tickets.minMax[1]}
 												min={rootStore.tickets.minMax[0]}
 												onChange={rootStore.tickets.handleChangeValueSlaider} 
+												onChangeCommitted={rootStore.tickets.handleCommittedValueSlaider}
 												aria-labelledby="range-slider"
 											 />
 										 )
@@ -54,6 +55,7 @@ class Filter extends React.Component{
 											getKey={element.getKey}
 											id={element.id}
 											onChange={rootStore.tickets.filterData}
+											
 		
 										/>
 								)

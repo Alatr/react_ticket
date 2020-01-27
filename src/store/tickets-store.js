@@ -11,6 +11,7 @@ export default class Tickets{
 		this.rootStore = rootStore;
     this.api = this.rootStore.api;
     this.city = this.rootStore.cityData;
+    this.mainStore = this.rootStore.mainStore;
 	}
 	@observable loading = true;
 
@@ -46,6 +47,7 @@ export default class Tickets{
 			},
 	};
 	@observable ticketsList = [];
+	@observable filteredTicketsList = [];
 	@observable tablePaginationSattings = {
 		selectItems: [15, 20, 25, 30,  { label: 'All', value: -1 }],
 		numberRows: 15,
@@ -143,6 +145,10 @@ export default class Tickets{
 	@action handleChangeValueSlaider = (e,val)=>{
 		this.slider.value = val
 	}
+	@action handleCommittedValueSlaider = (e, val) => {
+		this.ticketsList = this.ticketsList.filter((el, i) => el.value >= val[0] && el.value <= val[1]);
+		console.log(this.rootStore.mainStore.ticketsList);
+	}
 
 	@computed get minMax() {
 		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
@@ -170,6 +176,7 @@ export default class Tickets{
 	}
 
 	@action changeTicketsListAPI(obj){
+		this.rootStore.mainStore.ticketsList = [];
 		this.ticketsList = [];
 		obj.forEach((el)=>{
 			let item = {}
@@ -178,6 +185,7 @@ export default class Tickets{
 					item[key] = el[key];
 				}
 			}
+			this.rootStore.mainStore.ticketsList.push(item)
 			this.ticketsList.push(item)
 		});
 		
@@ -190,6 +198,7 @@ export default class Tickets{
 				runInAction(() => {
 					this.changeTicketsListAPI(data.data);
 					this.changeLoading();
+
 
 					if (pa) {
 						this.changeFilterSetings(pa[0],pa[1]);
