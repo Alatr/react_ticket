@@ -13,46 +13,66 @@ export default class Tickets{
     this.city = this.rootStore.cityData;
     this.mainStore = this.rootStore.mainStore;
 	}
+
+	// loading page and preloader
 	@observable loading = true;
 
-	@observable filterSetings = {
-			currency: {
-				type: 'select',
-				label: 'Currency',
-				getKey: 'currency',
-				id: 'currency',
-				value: 'uah',
-				params: [`uah`,`usd`,`eur`,'rub']
-			},
-			beginning_of_period: {
-				type: 'picker',
-				label: 'дата отправления',
-				value: new Date(),
-				getKey: "depart_date",
-				id: "date-picker-inline-depart",
-				format: "yyyy/MM/dd",
-				variant: "inline",
-			},
-			return_of_period: {
-				type: 'picker',
-				label: 'дата возвращения',
-				value: new Date(),
-				getKey: "return_date",
-				id: "date-picker-inline-return",
-				format: "yyyy/MM/dd",
-				variant: "inline",
-			},
-			slider: {
-				type: 'slider'
-			},
-	};
+	@action changeLoading() {
+		this.loading = false;
+	}
+
+
+	
+
+
+
 	@observable ticketsList = [];
-	@observable filteredTicketsList = [];
-	@observable tablePaginationSattings = {
-		selectItems: [15, 20, 25, 30,  { label: 'All', value: -1 }],
-		numberRows: 15,
-		page: 0
+
+
+	@computed get ticketsLength() {
+		return this.ticketsList.length
+	}
+
+	@action setTicketsList = (val) => {
+		this.ticketsList = val
+	}
+
+// filter tickets 
+
+
+	@observable filterSetings = {
+		currency: {
+			type: 'select',
+			label: 'Currency',
+			getKey: 'currency',
+			id: 'currency',
+			value: 'uah',
+			params: [`uah`, `usd`, `eur`, 'rub']
+		},
+		beginning_of_period: {
+			type: 'picker',
+			label: 'дата отправления',
+			value: new Date(),
+			getKey: "depart_date",
+			id: "date-picker-inline-depart",
+			format: "yyyy/MM/dd",
+			variant: "inline",
+		},
+		return_of_period: {
+			type: 'picker',
+			label: 'дата возвращения',
+			value: new Date(),
+			getKey: "return_date",
+			id: "date-picker-inline-return",
+			format: "yyyy/MM/dd",
+			variant: "inline",
+		},
+		slider: {
+			type: 'slider',
+
+		},
 	};
+
 	@observable tableCell = [
 		{
 				key: 'actual',
@@ -115,15 +135,12 @@ export default class Tickets{
 				format: this.rootStore.mainStore.formatRule.parseDate
 		},
 	];
+
 	@computed get tableCellKey() {
 		return this.tableCell.map(el => el.key)
 	}
-	@computed get ticketsLength() {
-		return this.ticketsList.length 
-	}
-	@action changeLoading(){
-		this.loading = false;
-	}
+	
+	
 	@action filterData = (e, pikerName) => {
 		this.ticketsList = this.ticketsList.filter((el) => {
 			let a = Date.parse(el[pikerName]);
@@ -135,6 +152,12 @@ export default class Tickets{
 				if(element.getKey == pikerName) element.value = e;
 		}
 	}
+	@action changeFilterSetings(val, label) {
+		this.filterSetings[label].value = val
+	}
+
+
+	// slider prise filter
 
 	@observable slider = {
 		value : (()=>{
@@ -142,38 +165,22 @@ export default class Tickets{
 				return [Math.min(...priceArr),Math.max(...priceArr)];			
 		})()
 	}
+	@computed get minMax() {
+		let priceArr = this.rootStore.mainStore.ticketsList.map((el, i) => this.rootStore.mainStore.ticketsList[i]['value']);
+		return [Math.floor(Math.min(...priceArr)),Math.floor(Math.max(...priceArr))];
+	}
 	@action handleChangeValueSlaider = (e,val)=>{
 		this.slider.value = val
 	}
 	@action handleCommittedValueSlaider = (e, val) => {
-		this.ticketsList = this.ticketsList.filter((el, i) => el.value >= val[0] && el.value <= val[1]);
-		console.log(this.rootStore.mainStore.ticketsList);
+		this.ticketsList = this.rootStore.mainStore.ticketsList.filter((el, i) => el.value >= val[0] && el.value <= val[1]);
 	}
 
-	@computed get minMax() {
-		let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
-		return [Math.floor(Math.min(...priceArr)),Math.floor(Math.max(...priceArr))];
-	}
 	
 
-	@action handleChangeRowsPerPage = (e)=>{
-		this.tablePaginationSattings.numberRows = parseInt(e.target.value, 10);
-	}
-	@action handleNextButtonClick = ()=>{
-		this.tablePaginationSattings.page = this.tablePaginationSattings.page + 1;
-	}
-	@action handleBackButtonClick = ()=>{
-		this.tablePaginationSattings.page = this.tablePaginationSattings.page - 1;
-	}
-	@action handleFirstPageButtonClick = ()=>{
-		this.tablePaginationSattings.page = 0;
-	}
-	@action handleLastPageButtonClick = ()=>{
-		this.tablePaginationSattings.page = Math.ceil(this.ticketsLength / this.tablePaginationSattings.numberRows) - 1;
-	}
-	@action changeFilterSetings(val, label ){
-		this.filterSetings[label].value = val
-	}
+
+	
+	
 
 	@action changeTicketsListAPI(obj){
 		this.rootStore.mainStore.ticketsList = [];
@@ -186,9 +193,9 @@ export default class Tickets{
 				}
 			}
 			this.rootStore.mainStore.ticketsList.push(item)
-			this.ticketsList.push(item)
+			//this.ticketsList.push(item)
 		});
-		
+		this.setTicketsList(this.rootStore.mainStore.ticketsList)
 	}
 
 
@@ -199,7 +206,6 @@ export default class Tickets{
 					this.changeTicketsListAPI(data.data);
 					this.changeLoading();
 
-
 					if (pa) {
 						this.changeFilterSetings(pa[0],pa[1]);
 						
@@ -209,5 +215,67 @@ export default class Tickets{
 			});
 		});
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// pagination
+
+		@observable tablePaginationSattings = {
+			selectItems: [15, 20, 25, 30, {
+				label: 'All',
+				value: -1
+			}],
+			numberRows: 15,
+			page: 0
+		};
+
+
+		@action handleChangeRowsPerPage = (e) => {
+			this.tablePaginationSattings.numberRows = parseInt(e.target.value, 10);
+		}
+		@action handleNextButtonClick = () => {
+			this.tablePaginationSattings.page = this.tablePaginationSattings.page + 1;
+		}
+		@action handleBackButtonClick = () => {
+			this.tablePaginationSattings.page = this.tablePaginationSattings.page - 1;
+		}
+		@action handleFirstPageButtonClick = () => {
+			this.tablePaginationSattings.page = 0;
+		}
+		@action handleLastPageButtonClick = () => {
+			this.tablePaginationSattings.page = Math.ceil(this.ticketsLength / this.tablePaginationSattings.numberRows) - 1;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
