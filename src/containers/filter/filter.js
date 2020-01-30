@@ -6,6 +6,10 @@ import rootStore from '~/store';
 import withStore from '~/hocs/withStore';
 import SliderView from '~/components/filter/slaider';
 import Spinner from '~/components/errors/spinner';
+import CheckboxView from '~/components/filter/checkbox';
+import {
+	toJS
+} from 'mobx';
 
 
 
@@ -13,12 +17,26 @@ class Filter extends React.Component{
 
 	render(){
 		let selects = [];
+		let checkboxes = rootStore.tickets.tableCell.map((el)=>{
+			return <CheckboxView onChange={rootStore.tickets.setRenderTableCell}
+													id={el.id}
+													label={el.label}
+													key={el.id+'@#$%^&'}
+			/>
+		});
+
+		
+		
+		
+		
       for (const key in rootStore.tickets.filterSetings) {
 				if (rootStore.tickets.filterSetings.hasOwnProperty(key)) {
             const element = rootStore.tickets.filterSetings[key];
             
             switch (element.type) {
                case 'select':
+								 console.log(rootStore.tickets.tableCell);
+								 
                   selects.push(
                      <SelectView label={element.label}
                                  key={key}
@@ -69,10 +87,12 @@ class Filter extends React.Component{
       }
        return (rootStore.tickets.loading) ? 
 				<Spinner/> :
-				<> <h2>Filter</h2>
-               {selects}
-							 
-            </>;
+				<> 
+					<h2>table options</h2>
+					{checkboxes}
+					<h2>Filter</h2>
+          {selects}
+        </>;
    }
 }
 

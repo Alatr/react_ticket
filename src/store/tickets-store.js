@@ -73,6 +73,10 @@ export default class Tickets{
 		},
 	};
 
+	@observable renderTableCell = []
+	@action setRenderTableCell = (val)=>{
+		this.renderTableCell.push(val.target.value)
+	}
 	@observable tableCell = [
 		{
 				key: 'actual',
@@ -82,7 +86,7 @@ export default class Tickets{
 		},
 		{
 				key: 'gate',
-				label: 'Site',
+				label: 'Сайт',
 				id: 'id_gate,',
 				format: this.rootStore.mainStore.formatRule.string
 		},
@@ -139,6 +143,20 @@ export default class Tickets{
 	@computed get tableCellKey() {
 		return this.tableCell.map(el => el.key)
 	}
+
+// value: 557.25
+// trip_class: 0
+// show_to_affiliates: true
+// return_date: "2020-03-18"
+// origin: "IEV"
+// number_of_changes: 0
+// gate: "Ryanair"
+// found_at: "2020-01-30T18:48:54.852176"
+// duration: 220
+// distance: 836
+// destination: "KTW"
+// depart_date: "2020-03-11"
+// actual: true
 	
 	
 	@action filterData = (e, pikerName) => {
@@ -203,6 +221,8 @@ export default class Tickets{
 		return new Promise((resolve)=>{
 			this.api.tickets.load(pa).then((data)=>{
 				runInAction(() => {
+					console.log(this.tableCellKey);
+					
 					this.changeTicketsListAPI(data.data);
 					this.changeLoading();
 
