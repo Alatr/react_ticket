@@ -19,7 +19,7 @@ class Filter extends React.Component{
 		let selects = [];
 		let checkboxes = rootStore.tickets.tableCell.map((el)=>{
 			return <CheckboxView onChange={rootStore.tickets.setRenderTableCell}
-													id={el.id}
+													id={el.key}
 													label={el.label}
 													key={el.id+'@#$%^&'}
 			/>

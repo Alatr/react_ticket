@@ -18,7 +18,7 @@ class Tickets extends React.Component{
 			
 			 return (rootStore.tickets.loading) ? 
 				<Spinner/> :
-				<TicketsView tableCell = {ticketsStore.tableCell}
+				<TicketsView tableCell = {ticketsStore.renderTableCell}
 										 ticketsList={ticketsListDetails}
 										 ticketsLength={ticketsStore.ticketsLength}
 										 selectItems={ticketsStore.tablePaginationSattings.selectItems}

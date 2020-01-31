@@ -52,6 +52,8 @@ export default class extends PureComponent{
 				</div>
 			);
 		}
+		console.log(tableCell,'----');
+		
 		let tableCellView = tableCell.map(column => {
 			return 	<TableCell key={column.id} >
 								{column.label}

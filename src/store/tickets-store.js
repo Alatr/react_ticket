@@ -73,9 +73,15 @@ export default class Tickets{
 		},
 	};
 
-	@observable renderTableCell = []
+	@observable renderTableCell = [];
 	@action setRenderTableCell = (val)=>{
-		this.renderTableCell.push(val.target.value)
+		const index = this.tableCell.findIndex(el => el.key === val.target.value);
+		
+		let _tempArr = this.renderTableCell.map((el) => el);
+		
+		_tempArr.push(this.tableCell[index]);
+		this.renderTableCell = _tempArr
+		
 	}
 	@observable tableCell = [
 		{
@@ -200,30 +206,32 @@ export default class Tickets{
 	
 	
 
-	@action changeTicketsListAPI(obj){
-		this.rootStore.mainStore.ticketsList = [];
-		this.ticketsList = [];
-		obj.forEach((el)=>{
-			let item = {}
-			for (const key in el) {
-				if (el.hasOwnProperty(key) && this.tableCellKey.includes(key)) {
-					item[key] = el[key];
-				}
-			}
-			this.rootStore.mainStore.ticketsList.push(item)
-			//this.ticketsList.push(item)
-		});
-		this.setTicketsList(this.rootStore.mainStore.ticketsList)
-	}
+	// @action changeTicketsListAPI(obj){
+	// 	this.rootStore.mainStore.ticketsList = [];
+	// 	this.ticketsList = [];
+	// 	obj.forEach((el)=>{
+	// 		let item = {}
+	// 		for (const key in el) {
+	// 			if (el.hasOwnProperty(key) && this.renderTableCell.includes(key)) {
+	// 				item[key] = el[key];
+	// 			}
+	// 		}
+	// 		this.rootStore.mainStore.ticketsList.push(item)
+	// 		//this.ticketsList.push(item)
+	// 	});
+	// 	this.setTicketsList(this.rootStore.mainStore.ticketsList)
+	// }
 
 
 	@action load = (pa = null)=>{
+		
 		return new Promise((resolve)=>{
 			this.api.tickets.load(pa).then((data)=>{
 				runInAction(() => {
 					console.log(this.tableCellKey);
-					
-					this.changeTicketsListAPI(data.data);
+					this.rootStore.mainStore.ticketsList = data.data
+					this.setTicketsList(this.rootStore.mainStore.ticketsList)
+					//this.changeTicketsListAPI(data.data);
 					this.changeLoading();
 
 					if (pa) {
