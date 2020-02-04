@@ -7,14 +7,13 @@ import withStore from '~/hocs/withStore';
 import SliderView from '~/components/filter/slaider';
 import Spinner from '~/components/errors/spinner';
 import CheckboxView from '~/components/filter/checkbox';
-import {
-	toJS
-} from 'mobx';
 
 
 
 class Filter extends React.Component{
-
+	componentDidMount(){
+		rootStore.tickets.setDefaultTableCell()
+	}
 	render(){
 		let selects = [];
 		let checkboxes = rootStore.tickets.tableCell.map((el)=>{
@@ -36,7 +35,6 @@ class Filter extends React.Component{
             
             switch (element.type) {
                case 'select':
-								 console.log(rootStore.tickets.tableCell);
 								 
                   selects.push(
                      <SelectView label={element.label}

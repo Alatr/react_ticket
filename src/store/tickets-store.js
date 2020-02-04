@@ -74,20 +74,24 @@ export default class Tickets{
 	};
 
 	@observable renderTableCell = [];
-	@action setRenderTableCell = (val)=>{
-		const index = this.tableCell.findIndex(el => el.key === val.target.value);
-		let _tempArr = this.renderTableCell.map((el) => el);
-		this.tableCell[index].checked = !this.tableCell[index].checked
-		_tempArr.push(this.tableCell[index]);
+	@action setDefaultTableCell = ()=>{
 		for (const key in this.tableCell) {
 			if (this.tableCell.hasOwnProperty(key)) {
 				const element = this.tableCell[key];
-				console.log(element,'elem');
-				
-				if (element.checked) _tempArr.push(this.tableCell[key]);
+				if (element.checked) this.renderTableCell.push(element);
 			}
 		}
-		this.renderTableCell = _tempArr
+	}
+	@action setRenderTableCell = (val)=>{
+		this.renderTableCell = [];
+		const index = this.tableCell.findIndex(el => el.key === val.target.value);
+		this.tableCell[index].checked = !this.tableCell[index].checked;
+		for (const key in this.tableCell) {
+			if (this.tableCell.hasOwnProperty(key)) {
+				const element = this.tableCell[key];
+				if (element.checked) this.renderTableCell.push(element);
+			}
+		}
 	}
 
 	@observable tableCell = [
@@ -109,7 +113,7 @@ export default class Tickets{
 				key: 'distance',
 				label: 'расстояние ',
 				id: 'id_distance,',
-				checked: true,
+				checked: false,
 				format: this.rootStore.mainStore.formatRule.number
 		},
 		{
@@ -151,14 +155,14 @@ export default class Tickets{
 				key: 'number_of_changes',
 				label: 'количество пересадок',
 				id: 'id_number_of_changes,',
-				checked: true,
+				checked: false,
 				format: this.rootStore.mainStore.formatRule.number
 		},
 		{
 				key: 'found_at',
 				label: 'когда был найден билет',
 				id: 'id_found_at,',
-				checked: true,
+				checked: false,
 				format: this.rootStore.mainStore.formatRule.parseDate
 		},
 	];
@@ -166,20 +170,6 @@ export default class Tickets{
 	@computed get tableCellKey() {
 		return this.tableCell.map(el => el.key)
 	}
-
-// value: 557.25
-// trip_class: 0
-// show_to_affiliates: true
-// return_date: "2020-03-18"
-// origin: "IEV"
-// number_of_changes: 0
-// gate: "Ryanair"
-// found_at: "2020-01-30T18:48:54.852176"
-// duration: 220
-// distance: 836
-// destination: "KTW"
-// depart_date: "2020-03-11"
-// actual: true
 	
 	
 	@action filterData = (e, pikerName) => {
@@ -203,7 +193,7 @@ export default class Tickets{
 	@observable slider = {
 		value : (()=>{
 				let priceArr = this.ticketsList.map((el, i) => this.ticketsList[i]['value']);
-				return [Math.min(...priceArr),Math.max(...priceArr)];			
+				return [Math.min(...priceArr),Math.max(...priceArr)];
 		})()
 	}
 	@computed get minMax() {
