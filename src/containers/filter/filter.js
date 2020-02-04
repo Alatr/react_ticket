@@ -21,6 +21,7 @@ class Filter extends React.Component{
 			return <CheckboxView onChange={rootStore.tickets.setRenderTableCell}
 													id={el.key}
 													label={el.label}
+													checked={el.checked}
 													key={el.id+'@#$%^&'}
 			/>
 		});

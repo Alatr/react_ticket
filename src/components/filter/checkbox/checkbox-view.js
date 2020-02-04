@@ -15,7 +15,7 @@ export default function SelectView (props){
 				<FormControlLabel
 					control={
 						<Checkbox
-							checked={null}
+							checked={props.checked}
 							onChange={props.onChange}
 							value={props.id}
 							color="primary"

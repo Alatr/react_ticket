@@ -76,72 +76,89 @@ export default class Tickets{
 	@observable renderTableCell = [];
 	@action setRenderTableCell = (val)=>{
 		const index = this.tableCell.findIndex(el => el.key === val.target.value);
-		
 		let _tempArr = this.renderTableCell.map((el) => el);
-		
+		this.tableCell[index].checked = !this.tableCell[index].checked
 		_tempArr.push(this.tableCell[index]);
+		for (const key in this.tableCell) {
+			if (this.tableCell.hasOwnProperty(key)) {
+				const element = this.tableCell[key];
+				console.log(element,'elem');
+				
+				if (element.checked) _tempArr.push(this.tableCell[key]);
+			}
+		}
 		this.renderTableCell = _tempArr
-		
 	}
+
 	@observable tableCell = [
 		{
 				key: 'actual',
 				label: 'Актуальность',
 				id: 'id_actual,',
+				checked: false,
 				format: this.rootStore.mainStore.formatRule.bool
 		},
 		{
 				key: 'gate',
 				label: 'Сайт',
 				id: 'id_gate,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.string
 		},
 		{
 				key: 'distance',
 				label: 'расстояние ',
 				id: 'id_distance,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.number
 		},
 		{
 				key: 'depart_date',
 				label: 'дата отправления',
 				id: 'id_depart_date,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.string
 		},
 		{
 				key: 'destination',
 				label: 'пункт назначения',
 				id: 'id_destination,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.parseCityCode
 		},
 		{
 				key: 'origin',
 				label: 'пункт отправления',
 				id: 'id_origin,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.parseCityCode
 		},
 		{
 				key: 'return_date',
 				label: 'дата возвращения',
 				id: 'id_return_date,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.string
 		},
 		{
 				key: 'value',
 				label: 'Цена',
 				id: 'id_value,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.number
 		},
 		{
 				key: 'number_of_changes',
 				label: 'количество пересадок',
 				id: 'id_number_of_changes,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.number
 		},
 		{
 				key: 'found_at',
 				label: 'когда был найден билет',
 				id: 'id_found_at,',
+				checked: true,
 				format: this.rootStore.mainStore.formatRule.parseDate
 		},
 	];
