@@ -1782,7 +1782,7 @@ button {
 }
 
 .search-project-result {
-  display: none;
+  /* display: none; */
   min-width: 160px;
   width: 100%;
   max-width: 310px;

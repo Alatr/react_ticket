@@ -5,7 +5,7 @@ import styles from '~/containers/app/css/app.css';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { routes } from '~/router';
 import Logo from './img/my.svg';
-import SearchInputView from '~/components/filter/search-input';
+
 
 export default class App extends React.Component{
    render(){
@@ -31,17 +31,7 @@ export default class App extends React.Component{
                <Select/>
             </aside>
             <main className="content">
-               <div className="search-wrapper">
-               <div className="search-item-wrapper">
-                  <span>Откуда </span>
-                  <SearchInputView/>
-               </div>
-               <div className="search-item-wrapper">
-                  <span>куда</span>
-                  <SearchInputView/>
-               </div>
-
-               </div>
+              
             <Switch>
                {routesItems}
             </Switch>

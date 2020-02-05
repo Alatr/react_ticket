@@ -1,0 +1,7 @@
+.tableWrapper{
+	max-height: 440;
+	overflow: 'auto';
+}
+.root{
+	width: 100%;
+}

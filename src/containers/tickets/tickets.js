@@ -3,6 +3,7 @@ import withStore from '~/hocs/withStore';
 import rootStore from '~/store';
 import Spinner from '~/components/errors/spinner';
 import TicketsView from '~/components/table';
+import Search from '~/containers/search';
 
 
 class Tickets extends React.Component{
@@ -18,19 +19,21 @@ class Tickets extends React.Component{
 			
 			 return (rootStore.tickets.loading) ? 
 				<Spinner/> :
-				<TicketsView tableCell = {ticketsStore.renderTableCell}
-										 ticketsList={ticketsListDetails}
-										 ticketsLength={ticketsStore.ticketsLength}
-										 selectItems={ticketsStore.tablePaginationSattings.selectItems}
-										 numberRows={ticketsStore.tablePaginationSattings.numberRows}
-										 handleNextButtonClick={ticketsStore.handleNextButtonClick}
-										 handleBackButtonClick={ticketsStore.handleBackButtonClick}
-										 handleFirstPageButtonClick={ticketsStore.handleFirstPageButtonClick}
-										 handleLastPageButtonClick={ticketsStore.handleLastPageButtonClick}
-										 page={ticketsStore.tablePaginationSattings.page}
-										 handleChangeRowsPerPage={ticketsStore.handleChangeRowsPerPage}
-				/>;
-		 
+				<>
+					<Search/>
+					<TicketsView tableCell = {ticketsStore.renderTableCell}
+											ticketsList={ticketsListDetails}
+											ticketsLength={ticketsStore.ticketsLength}
+											selectItems={ticketsStore.tablePaginationSattings.selectItems}
+											numberRows={ticketsStore.tablePaginationSattings.numberRows}
+											handleNextButtonClick={ticketsStore.handleNextButtonClick}
+											handleBackButtonClick={ticketsStore.handleBackButtonClick}
+											handleFirstPageButtonClick={ticketsStore.handleFirstPageButtonClick}
+											handleLastPageButtonClick={ticketsStore.handleLastPageButtonClick}
+											page={ticketsStore.tablePaginationSattings.page}
+											handleChangeRowsPerPage={ticketsStore.handleChangeRowsPerPage}
+					/>;
+		 		</>
    }
 }
 

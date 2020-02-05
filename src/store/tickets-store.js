@@ -254,6 +254,52 @@ export default class Tickets{
 
 
 
+	//search
+
+	@observable arrrResultSearch = [];
+	@observable inputSerchFrom = {
+		val: ""
+	};
+	@action handlerSearchInput = (e)=>{
+		console.log(e.target.value);
+		this.inputSerchFrom.val = e.target.value;
+
+		this.searchHouse(e.target.value)
+
+
+		
+	}
+	@action searchHouse(searchKey) {
+		
+		this.arrrResultSearch = [];
+
+		for (const i in this.rootStore.mainStore.IATAData) {
+
+			if (this.rootStore.mainStore.IATAData.hasOwnProperty(i)) {
+				const element = this.rootStore.mainStore.IATAData[i];
+				console.log(element);
+
+				let pattern = new RegExp(`^${searchKey}`, "i");
+				if (this.arrrResultSearch.length <= 10 && element != null && element.search(pattern) != -1) {
+						this.arrrResultSearch.push(element);
+				}
+				
+			}
+		}
+
+		console.log(toJS(this.arrrResultSearch));
+		
+		//	IF WE NOT FOUND NOTHING
+		// if (!findArr.length) {
+		// 	return searchKey;
+		// }
+		// // ELSE
+		// return findArr;
+	}
+
+
+
+
 
 
 

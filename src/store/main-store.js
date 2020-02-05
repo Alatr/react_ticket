@@ -43,6 +43,7 @@ export default class MainStore{
 		let newObjCityInfo = {};
 			if (this.cityInfo) {
 				this.cityInfo.forEach((el) => {
+					
 					newObjCityInfo[el.code] = el.name
 				});
 			}
